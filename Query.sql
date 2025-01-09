@@ -35,4 +35,23 @@ from Employees e1
 left join EmployeeUNI e2
 on e1.id = e2.id;
 
+-- https://chat.google.com/dm/t5WyRkAAAAE/nA-zQtxZ5Mg/nA-zQtxZ5Mg?cls=10
+select p.product_name,
+       s.year,
+       s.price
+from Sales s
+join Product p
+on s.product_id = p.product_id;
+
+-- https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions
+
+select v.customer_id,
+       count(v.customer_id) as count_no_trans
+from Visits v
+
+left join Transactions t
+on v.visit_id = t.visit_id
+where v.visit_id not in (select visit_id from Transactions)
+group by v.customer_id;
+
 
