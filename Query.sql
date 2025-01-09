@@ -27,3 +27,12 @@ order by author_id ASC;
 select tweet_id
 from Tweets
 where length(content) > 15;
+
+-- https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier
+select e2.unique_id,
+       e1.name
+from Employees e1
+left join EmployeeUNI e2
+on e1.id = e2.id;
+
+
