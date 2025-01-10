@@ -1,4 +1,4 @@
---          Day1
+--          Day1            --
 
 -- 1757. Recyclable and Low Fat Products
 SELECT p.product_id
@@ -28,6 +28,9 @@ select tweet_id
 from Tweets
 where length(content) > 15;
 
+
+--                  Day2                      --
+
 -- https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier
 select e2.unique_id,
        e1.name
@@ -48,10 +51,34 @@ on s.product_id = p.product_id;
 select v.customer_id,
        count(v.customer_id) as count_no_trans
 from Visits v
-
 left join Transactions t
 on v.visit_id = t.visit_id
 where v.visit_id not in (select visit_id from Transactions)
 group by v.customer_id;
+
+-- https://leetcode.com/problems/average-time-of-process-per-machine/description
+select a.machine_id, round(avg(b.timestamp - a.timestamp), 3) as processing_time 
+from activity a join activity b
+on a.machine_id = b.machine_id and a.process_id = b.process_id and a.activity_type = 'start' and b.activity_type = 'end'
+group by 1;
+
+-- https://leetcode.com/problems/employee-bonus/description
+select e.name,
+       b.bonus
+from employee e
+left join Bonus b
+on e.empId = b.empId
+where b.bonus < 1000 or b.bonus is NULL;
+
+-- https://leetcode.com/problems/managers-with-at-least-5-direct-reports/description
+select NAME
+from employee 
+where id IN (
+      select managerId
+      from employee
+      group by managerId
+      having count(*) >= 5
+
+      );
 
 
