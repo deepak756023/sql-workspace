@@ -80,5 +80,37 @@ where id IN (
       having count(*) >= 5
 
       );
+      
+--          Day3        --
+
+
+-- https://leetcode.com/problems/not-boring-movies
+select  c.*
+from Cinema c
+where c.id % 2 != 0 and c.description != 'boring'
+order by c.rating DESC;
+
+-- https://leetcode.com/problems/average-selling-price
+select p.product_id , if(round(sum(p.price * u.units)/sum(u.units),2) is NULL , 0, round(sum(p.price * u.units)/sum(u.units),2) ) as average_price
+from Prices p 
+left join UnitsSold u 
+  on p.product_id=u.product_id  
+ and purchase_date between start_date and end_date 
+ group by product_id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
