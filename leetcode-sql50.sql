@@ -96,7 +96,42 @@ from Prices p
 left join UnitsSold u 
   on p.product_id=u.product_id  
  and purchase_date between start_date and end_date 
- group by product_id
+ group by product_id;
+ 
+ -- https://leetcode.com/problems/project-employees-i
+ select p.project_id,
+       round(avg(e.experience_years), 2) as average_years
+from Project p
+join Employee e
+on p.employee_id = e.employee_id
+group by p.project_id;
+
+-- https://leetcode.com/problems/percentage-of-users-attended-a-contest
+select r.contest_id,
+       round((count(r.user_id)/ (select count(*)
+                          from Users) ) * 100, 2) as percentage
+from Register r
+group by r.contest_id
+order by percentage desc, r.contest_id;
+
+-- https://leetcode.com/problems/queries-quality-and-percentage
+select query_name,
+       round(sum(rating / position) / count(rating), 2) as quality,
+       round(sum(rating < 3) / count(rating) * 100, 2) as  poor_query_percentage
+       
+from Queries
+group by query_name;
+
+-- https://leetcode.com/problems/monthly-transactions-i
+SELECT 
+    DATE_FORMAT(trans_date, '%Y-%m') AS month
+    , country
+    , COUNT(*) AS trans_count
+    , SUM(state = 'approved') AS approved_count
+    , SUM(amount) AS trans_total_amount
+    , SUM(IF(state = 'approved', amount, 0)) AS approved_total_amount
+FROM Transactions
+GROUP BY month, country;
 
 
 
