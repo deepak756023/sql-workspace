@@ -98,6 +98,8 @@ left join UnitsSold u
  and purchase_date between start_date and end_date 
  group by product_id;
  
+ --                      Day4                    --
+ 
  -- https://leetcode.com/problems/project-employees-i
  select p.project_id,
        round(avg(e.experience_years), 2) as average_years
@@ -132,6 +134,13 @@ SELECT
     , SUM(IF(state = 'approved', amount, 0)) AS approved_total_amount
 FROM Transactions
 GROUP BY month, country;
+
+-- https://leetcode.com/problems/immediate-food-delivery-ii
+SELECT (ROUND (sum(IF (order_date=customer_pref_delivery_date, 1, 0)) / count(*) , 4) * 100) as immediate_percentage
+FROM Delivery
+WHERE (customer_id,order_date) in (select customer_id,min(order_date)  
+                                   from delivery 
+                                   group by customer_id);
 
 
 
