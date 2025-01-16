@@ -142,6 +142,34 @@ WHERE (customer_id,order_date) in (select customer_id,min(order_date)
                                    from delivery 
                                    group by customer_id);
 
+--                          Day5                              --
+
+-- https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher
+select distinct teacher_id,
+       count(distinct subject_id) as cnt
+from Teacher
+group by teacher_id;
+
+-- https://leetcode.com/problems/user-activity-for-the-past-30-days-i
+select activity_date as day,
+       COUNT(distinct user_id) as active_users 
+       
+from activity
+group by activity_date
+having activity_date between '2019-06-28' and '2019-07-28';
+
+-- https://leetcode.com/problems/product-sales-analysis-iii
+SELECT product_id, 
+       year as first_year, 
+       quantity,
+       price
+FROM Sales
+WHERE (product_id,year) in (
+                       SELECT product_id,MIN(year)
+                       FROM Sales
+                       GROUP BY product_id
+                    );
+
 
 
 
