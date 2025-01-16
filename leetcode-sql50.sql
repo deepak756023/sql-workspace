@@ -1,4 +1,4 @@
---          Day1            --
+--                                                                                Basic Select                                                                            --
 
 -- 1757. Recyclable and Low Fat Products
 SELECT p.product_id
@@ -29,7 +29,7 @@ from Tweets
 where length(content) > 15;
 
 
---                  Day2                      --
+--                                                                                   Basic Joins                                                                     --
 
 -- https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier
 select e2.unique_id,
@@ -81,7 +81,7 @@ where id IN (
 
       );
       
---          Day3        --
+--                                                                       Basic Aggregate Functions                                                                           --
 
 
 -- https://leetcode.com/problems/not-boring-movies
@@ -97,8 +97,6 @@ left join UnitsSold u
   on p.product_id=u.product_id  
  and purchase_date between start_date and end_date 
  group by product_id;
- 
- --                      Day4                    --
  
  -- https://leetcode.com/problems/project-employees-i
  select p.project_id,
@@ -142,7 +140,7 @@ WHERE (customer_id,order_date) in (select customer_id,min(order_date)
                                    from delivery 
                                    group by customer_id);
 
---                          Day5                              --
+--                                                                           Sorting and Grouping                                                                           --
 
 -- https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher
 select distinct teacher_id,
@@ -169,6 +167,36 @@ WHERE (product_id,year) in (
                        FROM Sales
                        GROUP BY product_id
                     );
+                    
+-- https://leetcode.com/problems/classes-more-than-5-students
+select class
+from Courses
+group by class
+having count(student) >= 5;
+
+-- https://leetcode.com/problems/find-followers-count
+select user_id,
+       count(*) as followers_count
+from Followers
+group by user_id
+order by user_id;
+
+-- https://leetcode.com/problems/biggest-single-number
+select
+    case when count(num)=1 then num 
+    else null 
+    end as num
+from MyNumbers
+group by num
+order by num desc 
+limit 1;
+
+-- https://leetcode.com/problems/customers-who-bought-all-products
+select customer_id
+from Customer
+group by customer_id
+having count(distinct product_key) = (select count(distinct product_key)
+                            from Product );
 
 
 
