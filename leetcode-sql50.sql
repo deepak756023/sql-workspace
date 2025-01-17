@@ -197,8 +197,40 @@ from Customer
 group by customer_id
 having count(distinct product_key) = (select count(distinct product_key)
                             from Product );
+                            
+--                                                                      Advanced Select and Joins                                                               --
+
+-- https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee
+select e1.employee_id,
+       e1.name,
+       count(e2.employee_id) as reports_count,
+       round(avg(e2.age)) as average_age
+       
+from Employees e1
+join Employees e2
+on e1.employee_id = e2.reports_to
+group by e1.employee_id, e1.name
+order by employee_id;
+
+-- https://leetcode.com/problems/primary-department-for-each-employee
+select employee_id,department_id 
+from Employee 
+where primary_flag = 'Y' or employee_id not in(select employee_id
+                                               from Employee
+                                               where primary_flag = 'Y');
+                                               
+--       https://leetcode.com/problems/triangle-judgement
+select *,
+   case
+    when x+y > z and x+z > y and y+z > x then 'Yes'
+    else 'No'
+    end as triangle
+from Triangle ;
+
+-- https://leetcode.com/problems/product-price-at-a-given-date
 
 
+ 
 
 
 
