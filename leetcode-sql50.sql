@@ -229,6 +229,43 @@ from Triangle ;
 
 -- https://leetcode.com/problems/product-price-at-a-given-date
 
+-- https://leetcode.com/problems/count-salary-categories
+select "Low Salary" as category,
+        sum(if(income<20000,1,0)) as accounts_count
+from Accounts
+group by category
+union
+select "Average Salary" as category, 
+       sum(if(income>=20000 and income<=50000,1,0)) as accounts_count 
+from Accounts
+group by category
+union
+select "High Salary" as category, 
+       sum(if(income>50000,1,0)) as accounts_count 
+from Accounts
+group by category;
+
+--                                                                                 Subqueries                                                                             --
+
+-- https://leetcode.com/problems/employees-whose-manager-left-the-company
+select employee_id
+from Employees
+where salary < 30000 and manager_id not in (select employee_id
+                         from Employees)
+order by employee_id asc;
+
+-- https://leetcode.com/problems/exchange-seats
+select
+       case when mod(id,2)=0 then id-1
+            when mod(id,2)=1 and id+1 not in (select id from seat) then id
+            else id+1 end as id,
+            student
+from seat 
+order by id;
+
+-- https://leetcode.com/problems/movie-rating
+
+
 
  
 
