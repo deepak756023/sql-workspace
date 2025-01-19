@@ -265,7 +265,52 @@ order by id;
 
 -- https://leetcode.com/problems/movie-rating
 
+--                                                                 Advanced String Functions / Regex / Clause                                                                 --
 
+-- https://leetcode.com/problems/fix-names-in-a-table
+select user_id,
+       concat(upper(substring(name, 1, 1)), lower(substring(name, 2))) as name
+from Users
+order by user_id asc;
+
+-- https://leetcode.com/problems/patients-with-a-condition
+select patient_id,
+       patient_name,
+       conditions
+from Patients
+where conditions like "% DIAB1%" or conditions like "DIAB1%";
+
+-- https://leetcode.com/problems/delete-duplicate-emails
+delete 
+from Person
+where Id not in (select min_id
+                 from (select min(Id) as min_id 
+                       from Person 
+                       group by Email) as a);
+
+-- https://leetcode.com/problems/second-highest-salary
+select max(Salary) as SecondHighestSalary
+from Employee
+where Salary < (Select max(Salary) from Employee);
+
+-- https://leetcode.com/problems/group-sold-products-by-the-date
+select sell_date,
+       count(distinct product) as num_sold,
+       group_concat(distinct product order by product) as products
+from Activities
+group by sell_date;
+
+-- https://leetcode.com/problems/list-the-products-ordered-in-a-period
+select p.product_name,
+       sum(o.unit) as unit
+from Products p
+join Orders o
+on p.product_id = o.product_id
+where o.order_date between '2020-02-01' and '2020-02-29'
+group by p.product_name
+having sum(o.unit) >= 100;
+
+-- https://leetcode.com/problems/find-users-with-valid-e-mails
 
  
 
